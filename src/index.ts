@@ -7,6 +7,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 
 const app = express();
+const test = 10;
 
 app.use(
   cors({
