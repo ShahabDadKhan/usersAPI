@@ -1,5 +1,5 @@
 import express from "express";
-import { createUser, getUserByEmail } from "../db/users";
+import { createUser, getUserByEmail, deleteUserById } from "../db/users";
 import { authentication, random } from "../helpers";
 
 export const register = async (req: express.Request, res: express.Response) => {
@@ -33,3 +33,36 @@ export const register = async (req: express.Request, res: express.Response) => {
     res.sendStatus(400);
   }
 };
+
+export const login = async (req: express.Request, res: express.Response) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      res.status(400).json({ error: "Email or Password did not match" });
+    }
+
+    const user = await getUserByEmail(email).select(
+      "authentication.salt +authentication.passowrd"
+    );
+  } catch (error) {
+    res.sendStatus(400);
+  }
+};
+
+// export const removeUser = async (
+//   req: express.Request,
+//   res: express.Response
+// ) => {
+//   try {
+//     const { id } = req.body;
+
+//     if (!id) {
+//       res.status(400).json({ error: "User doesn't exit" });
+//     }
+
+//     const user = await deleteUserById();
+//   } catch (error) {
+//     res.sendStatus(400);
+//   }
+// };
