@@ -6,9 +6,10 @@ import compression from "compression";
 import cors from "cors";
 import mongoose from "mongoose";
 
-const app = express();
-const test = 10;
+// When you import a folder in TypeScript or JavaScript, it will look for an index.ts or index.js file inside that folder by default.
+import router from "./router";
 
+const app = express();
 app.use(
   cors({
     credentials: true,
@@ -32,3 +33,4 @@ const MONGO_URL = `mongodb+srv://torukmakto:${mongodbPassword}@torukmakto.pndwmy
 mongoose.Promise = Promise;
 mongoose.connect(MONGO_URL);
 mongoose.connection.on("error", (error: Error) => console.log(error));
+app.use("/", router());

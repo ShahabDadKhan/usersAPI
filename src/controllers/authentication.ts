@@ -1,12 +1,12 @@
-import { createUser, getUserByEmail } from "db/users";
 import express from "express";
-import { authentication, random } from "helpers";
+import { createUser, getUserByEmail } from "../db/users";
+import { authentication, random } from "../helpers";
 
 export const register = async (req: express.Request, res: express.Response) => {
   try {
     // Extract data from the request body (assuming JSON format)
     const { email, password, username } = req.body;
-
+    console.log("AYa", req.body);
     if (!email || !password || !username) {
       return res.status(400).json({ error: "Missing required field" });
     }
